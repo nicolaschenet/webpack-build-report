@@ -1,17 +1,16 @@
 "use strict"
 
-const fs = require('fs');
-const colors = require('colors')
-const moment = require('moment')
-
 const assetsUtils = require('./utils/assets')
+const cliUtils = require('./utils/cli')
 const coreUtils = require('./utils/core')
+const reportUtils = require('./utils/report')
 const statsUtils = require('./utils/stats')
 
 module.exports = class BuildReportPlugin {
 
   constructor (options) {
     this.options = Object.assign({}, {
+      append: false,
       assets: true,
       output: 'build-report.md',
       saveStats: true
@@ -21,12 +20,7 @@ module.exports = class BuildReportPlugin {
   apply (compiler) {
     compiler.plugin('done', stats => {
 
-      console.log(
-        '\n\n',
-        ' WEBPACK BUILD REPORT '.inverse,
-        'Crafting your report...',
-        '\n'
-      )
+      cliUtils.log('start')
 
       // Convert stats to something more readable
       stats = stats.toJson();
@@ -35,10 +29,7 @@ module.exports = class BuildReportPlugin {
       let report = '# Build report\n'
 
       // Report generic info
-      report += `- Date: **${moment().format('LLL')}**\n`
-      report += `- Time: **${stats.time}**ms\n`
-      report += `- Hash: **${stats.hash}**\n`
-      report += `- Version: webpack **${stats.version}**\n\n`
+      report += reportUtils.buildGenericInfo(stats)
 
       // Report assets
       if (this.options.assets) {
@@ -46,26 +37,16 @@ module.exports = class BuildReportPlugin {
       }
 
       // Save the report
-      fs.writeFile(this.options.output, report, err => {
-
-        if (err) {
-          return console.log(' WEBPACK BUILD REPORT '.inverse.red, err)
+      reportUtils.save(
+        report,
+        this.options.append ? 'append' : 'write',
+        this.options.output,
+        _ => {
+          if (this.options.saveStats) {
+            statsUtils.save(stats)
+          }
         }
-
-        console.log(
-          '\n\n',
-          ' WEBPACK BUILD REPORT '.inverse.green,
-          '💾 ',
-          'File',
-          `${this.options.output}`.yellow.bold,
-          'successfully saved !',
-          '\n\n'
-        )
-
-        if (this.options.saveStats) {
-          statsUtils.save(stats)
-        }
-      })
+      )
     })
   }
 }

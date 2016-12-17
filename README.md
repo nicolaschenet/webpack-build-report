@@ -41,6 +41,7 @@ module.exports = config
 ## Configuration options
 Option | Type | Default value | Description
 ---| --- | --- | ---
+append | bool | false | Appends the report to an existing `.md` file, based on the `output` option
 assets | bool | true | Adds the assets stats to the final report
 output | string | 'build-report.md' | Tell the plugin where you want your report to be saved. Must be an `.md` file !
 saveStats | bool | false | Saves the complete build stats in `.build-stats.json`, and allow your report to show comparisons to the last build
