@@ -43,18 +43,18 @@ Option | Type | Default value | Description
 ---| --- | --- | ---
 assets | bool | true | Adds the assets stats to the final report
 output | string | 'build-report.md' | Tell the plugin where you want your report to be saved. Must be an `.md` file !
-saveStats | bool | false | Saves the complete build stats in `.build-stats.json`
+saveStats | bool | false | Saves the complete build stats in `.build-stats.json`, and allow your report to show comparisons to the last build
 
 ---
 After your build has finished, you'll find a `build-report.md` file, containing:
 
 # Build report
 ### Assets list
-Asset name | Asset size
---- | ---
-AlertIllustration.js | 17.41 kB
-Button.js | 8.41 kB
-Checkbox.js | 7.26 kB
-Loader.js | 6.07 kB
-Modal.js | 15.93 kB
-PhoneLoader.js | 16.66 kB
+Asset name | Asset size | Size difference
+--- | --- | ---
+AlertIllustration.js | 17.41 kB | +6.45 kB
+Button.js | 8.41 kB | -
+Checkbox.js | 7.26 kB | -
+Loader.js | 6.07 kB | -21.12 kB
+Modal.js | 15.93 kB | -
+PhoneLoader.js | 16.66 kB | -4.00 kB
