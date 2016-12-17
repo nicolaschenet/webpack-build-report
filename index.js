@@ -3,6 +3,10 @@
 const fs = require('fs');
 const colors = require('colors')
 
+const assetsUtils = require('./utils/assets')
+const coreUtils = require('./utils/core')
+const statsUtils = require('./utils/stats')
+
 module.exports = class BuildReportPlugin {
 
   constructor (options) {
@@ -30,7 +34,7 @@ module.exports = class BuildReportPlugin {
       let report = '# Build report\n'
 
       if (this.options.assets) {
-        report += this.buildAssetsList(stats.assets)
+        report += assetsUtils.buildAssetsList(stats.assets)
       }
 
       // Output the report
@@ -51,50 +55,9 @@ module.exports = class BuildReportPlugin {
         )
 
         if (this.options.saveStats) {
-          fs.writeFileSync('.build-stats.json', JSON.stringify(stats, null, 2))
+          statsUtils.save(stats)
         }
       })
-
     })
-  }
-
-  getSavedStats () {
-    let savedStats
-    try {
-      savedStats = JSON.parse(fs.readFileSync('.build-stats.json'))
-    } catch (err) {
-      savedStats = {}
-    }
-    return savedStats
-  }
-
-  getAssetSizeDiff (asset, savedAssets) {
-    const savedAsset = savedAssets.find(_asset => _asset.name === asset.name)
-    const diff = asset.size - savedAsset.size
-    let formattedDiff = diff ? this.formatSize(diff) : '-'
-    formattedDiff = diff > 0 ? `+${formattedDiff}` : formattedDiff
-    return formattedDiff
-  }
-
-  formatSize (size) {
-    return `${(size / 1000).toFixed(2)} kB`
-  }
-
-  buildAssetsList (assets) {
-    const savedAssets = this.getSavedStats().assets || {}
-    const hasSavedAssets = !!Object.keys(savedAssets).length
-    let assetsList = '### Assets list\n'
-    assetsList += 'Asset name | Asset size'
-    assetsList += hasSavedAssets ? ' | Size diff' : ''
-    assetsList += '\n--- | ---'
-    assetsList += hasSavedAssets ? ' | ---\n' : '\n'
-
-    assets.forEach(asset => {
-      const sizeDiff = hasSavedAssets && this.getAssetSizeDiff(asset, savedAssets)
-      assetsList += `${asset.name} | ${this.formatSize(asset.size)}`
-      assetsList += sizeDiff ? ` | ${sizeDiff}` : ''
-      assetsList += '\n'
-    })
-    return assetsList
   }
 }
