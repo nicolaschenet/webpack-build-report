@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/nicolaschenet/webpack-build-report#readme",
   "dependencies": {
-    "colors": "^1.1.2"
+    "colors": "^1.1.2",
+    "moment": "^2.17.1"
   }
 }

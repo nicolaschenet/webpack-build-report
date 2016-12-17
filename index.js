@@ -2,6 +2,7 @@
 
 const fs = require('fs');
 const colors = require('colors')
+const moment = require('moment')
 
 const assetsUtils = require('./utils/assets')
 const coreUtils = require('./utils/core')
@@ -33,11 +34,18 @@ module.exports = class BuildReportPlugin {
       // Report header
       let report = '# Build report\n'
 
+      // Report generic info
+      report += `- Date: **${moment().format('LLL')}**\n`
+      report += `- Time: **${stats.time}**ms\n`
+      report += `- Hash: **${stats.hash}**\n`
+      report += `- Version: webpack **${stats.version}**\n\n`
+
+      // Report assets
       if (this.options.assets) {
         report += assetsUtils.buildAssetsList(stats.assets)
       }
 
-      // Output the report
+      // Save the report
       fs.writeFile(this.options.output, report, err => {
 
         if (err) {

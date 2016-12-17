@@ -49,6 +49,12 @@ saveStats | bool | false | Saves the complete build stats in `.build-stats.json`
 After your build has finished, you'll find a `build-report.md` file, containing:
 
 # Build report
+
+- Hash: **3776828640c3fab88ac5**
+- Version: webpack **1.14.0**
+- Time: **2813**ms
+- Generated on : **December 17, 2016 4:48 PM**
+
 ### Assets list
 Asset name | Asset size | Size difference
 --- | --- | ---
