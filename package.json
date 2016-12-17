@@ -1,6 +1,6 @@
 {
   "name": "webpack-build-report",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Build a report file after a Webpack build",
   "main": "index.js",
   "scripts": {
