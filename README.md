@@ -27,7 +27,8 @@ const config = {
     // other plugins ...,
     new BuildReportPlugin({
       assets: true,
-      output: `${SRC_DIR}/doc/build-report.md`
+      output: `${SRC_DIR}/doc/build-report.md`,
+      ...
     })
   ]
 }
@@ -42,6 +43,7 @@ Option | Type | Default value | Description
 ---| --- | --- | ---
 assets | bool | true | Adds the assets stats to the final report
 output | string | 'build-report.md' | Tell the plugin where you want your report to be saved. Must be an `.md` file !
+saveStats | bool | false | Saves the complete build stats in `.build-stats.json`
 
 ---
 After your build has finished, you'll find a `build-report.md` file, containing:

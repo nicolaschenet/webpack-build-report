@@ -7,16 +7,28 @@ module.exports = class BuildReportPlugin {
 
   constructor (options) {
     this.options = Object.assign({}, {
+      assets: true,
       output: 'build-report.md',
-      assets: true
+      saveStats: false
     }, options)
   }
 
   apply (compiler) {
     compiler.plugin('done', stats => {
 
+      console.log(
+        '\n\n',
+        ' WEBPACK BUILD REPORT '.inverse,
+        'Crafting your report...',
+        '\n'
+      )
+
       // Convert stats to something more readable
       stats = stats.toJson();
+
+      if (this.options.saveStats) {
+        fs.writeFileSync('.build-stats.json', JSON.stringify(stats, null, 2))
+      }
 
       // Report header
       let report = '# Build report\n'
@@ -29,12 +41,12 @@ module.exports = class BuildReportPlugin {
       fs.writeFile(this.options.output, report, err => {
 
         if (err) {
-          return console.log(' BUILD REPORT '.inverse.red, err)
+          return console.log(' WEBPACK BUILD REPORT '.inverse.red, err)
         }
 
         console.log(
           '\n\n',
-          ' BUILD REPORT '.inverse.green,
+          ' WEBPACK BUILD REPORT '.inverse.green,
           '💾 ',
           'File',
           `${this.options.output}`.yellow.bold,
