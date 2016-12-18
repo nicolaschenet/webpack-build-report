@@ -1,5 +1,7 @@
 # webpack-build-report
 
+[![npm](https://img.shields.io/npm/v/webpack-build-report.svg)]() [![npm](https://img.shields.io/npm/dt/webpack-build-report.svg)]()
+
 Webpack plugin that make it able to save your build reports in an `.md` file after each build.
 
 ## Example
