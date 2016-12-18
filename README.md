@@ -4,6 +4,19 @@
 
 Webpack plugin that make it able to save your build reports in an `.md` file after each build.
 
+
+## Installation
+
+#### NPM
+```shell
+$ npm i webpack-build-report --save-dev
+```
+
+#### Yarn (even better)
+```shell
+$ yarn add webpack-build-report --dev
+``` 
+
 ## Example
 
 **webpack.config.js**
