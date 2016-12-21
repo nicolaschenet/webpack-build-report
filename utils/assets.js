@@ -1,4 +1,4 @@
-"use strict"
+'use strict'
 
 const coreUtils = require('./core')
 const statsUtils = require('./stats')
@@ -22,7 +22,7 @@ function buildAssetsList (assets) {
 
 function getAssetSizeDiff (asset, savedAssets) {
   const savedAsset = savedAssets.find(_asset => _asset.name === asset.name)
-  const diff = asset.size - savedAsset.size
+  const diff = savedAsset ? asset.size - savedAsset.size : 0
   let formattedDiff = diff ? coreUtils.formatSize(diff) : '-'
   formattedDiff = diff > 0 ? `+${formattedDiff}` : formattedDiff
   return formattedDiff
