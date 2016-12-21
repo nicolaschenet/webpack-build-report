@@ -1,7 +1,7 @@
-"use strict"
+'use strict'
 
 const moment = require('moment')
-const fs = require('fs');
+const fs = require('fs')
 
 const cliUtils = require('./cli')
 

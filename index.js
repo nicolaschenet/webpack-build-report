@@ -1,8 +1,7 @@
-"use strict"
+'use strict'
 
 const assetsUtils = require('./utils/assets')
 const cliUtils = require('./utils/cli')
-const coreUtils = require('./utils/core')
 const reportUtils = require('./utils/report')
 const statsUtils = require('./utils/stats')
 
@@ -23,7 +22,7 @@ module.exports = class BuildReportPlugin {
       cliUtils.log('start')
 
       // Convert stats to something more readable
-      stats = stats.toJson();
+      stats = stats.toJson()
 
       // Report header
       let report = '# Build report\n'

@@ -1,6 +1,6 @@
-"use strict"
+'use strict'
 
-const colors = require('colors')
+require('colors')
 
 function log (mode, options) {
   switch (mode) {
@@ -11,16 +11,16 @@ function log (mode, options) {
         'Crafting your report...',
         '\n'
       )
-      break;
+      break
     case 'unauthorized-mode':
       console.log(
         ' WEBPACK BUILD REPORT '.inverse.red,
         `Unable to save report: unauthorized '${options.mode}' mode`
       )
-      break;
+      break
     case 'error':
       console.log(' WEBPACK BUILD REPORT '.inverse.red, options.err)
-      break;
+      break
     case 'success':
       console.log(
         '\n\n',
@@ -31,7 +31,7 @@ function log (mode, options) {
         'successfully saved !',
         '\n\n'
       )
-      break;
+      break
   }
 }
 
